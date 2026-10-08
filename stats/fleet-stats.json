@@ -1,7 +1,7 @@
 {
   "generated_on": "2026-10-08",
   "generated_by": "stats/fleet_stats.py",
-  "machine": "A-2022BAYAREA",
+  "machine": "node-cba056",
   "github": {
     "verdict": "measured",
     "asof": "2026-10-08",
@@ -79,23 +79,23 @@
     "routines_total": 1275,
     "oldest_snapshot": "2026-09-30",
     "per_node": {
-      "A-2022BAYAREA": {
+      "node-cba056": {
         "routines": 684,
         "collected": "2026-10-06"
       },
-      "FLEET-ANCHOR": {
+      "node-abf0c5": {
         "routines": 78,
         "collected": "2026-10-08"
       },
-      "MacBook-Anton": {
+      "node-2acc66": {
         "routines": 209,
         "collected": "2026-10-07"
       },
-      "MacPro192": {
+      "node-21d2d5": {
         "routines": 5,
         "collected": "2026-09-30"
       },
-      "ZBOOKG8-2023PAL": {
+      "node-dd28b3": {
         "routines": 299,
         "collected": "2026-10-07"
       }

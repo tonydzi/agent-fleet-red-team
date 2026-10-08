@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use agent-fleet-red-team in research or software, please cite it as below."
+title: "agent-fleet-red-team: threat model, standards mapping and measured gate rates for a production multi-agent fleet"
+type: software
+authors:
+  - family-names: Dziatkovskii
+    given-names: Anton
+    orcid: "https://orcid.org/0000-0001-7408-3054"
+    affiliation: "Palo Alto AI Research Lab"
+repository-code: "https://github.com/tonydzi/agent-fleet-red-team"
+url: "https://github.com/tonydzi/agent-fleet-red-team"
+license: MIT
+date-released: 2026-10-08
+version: "1.0.0"
+keywords:
+  - agent security
+  - prompt injection
+  - red teaming
+  - threat model
+  - OWASP LLM Top 10
+  - MITRE ATLAS
+  - guardrails
+  - over-refusal
+  - human in the loop
+abstract: >-
+  Red-team work on a production multi-agent fleet, written down. A threat model naming eight
+  assets, six trust boundaries and ten untrusted input surfaces, with nine residual risks
+  carrying numbers. A mapping of the running system onto the OWASP Top 10 for LLM
+  Applications (2025) and MITRE ATLAS with exact identifiers, published together with the
+  rows where the system is uncovered: fifteen ATLAS techniques reproduced on the authors own
+  stand, ten more listed as applicable and untested, twelve ATLAS mitigations implemented and
+  eight explicitly not. A measurement of the systems own authorization classifier reporting
+  refusal and over-refusal as two separate rates plus a rule-coverage rate, which shows that
+  fourteen of forty-nine must-ask actions reach a human only because the default is
+  fail-closed. A six-way mutation suite, shown failing on broken code before it was shown
+  passing. And a public write-up of an indirect prompt-injection chain delivered through four
+  input surfaces to four agents, with the damage it caused measured side by side against the
+  same fleet behind one authorization boundary.

@@ -61,6 +61,19 @@ def today():
     return _dt.date.today().isoformat()
 
 
+def anon(name):
+    """Stable pseudonym for a node.
+
+    The counts are the publishable fact; the machine names are not. Real hostnames and
+    fleet keys in a public file are free reconnaissance, and the threat model deliberately
+    talks about node ROLES instead. The digest is stable across weeks, so per-node series
+    still line up, and it carries no hostname.
+    """
+    import hashlib
+    h = hashlib.sha256(("fleet-node:" + str(name)).encode("utf-8")).hexdigest()[:6]
+    return "node-" + h
+
+
 def gh_json(*args, timeout=120):
     """One `gh` call -> parsed JSON, or None. Never raises."""
     try:
@@ -177,7 +190,7 @@ def source_fleet():
                         continue
                     node, cnt = row.get("node"), row.get("count")
                     at = (row.get("collected_at") or "")[:10]
-                    nodes[node] = {"routines": cnt, "collected": at}
+                    nodes[anon(node)] = {"routines": cnt, "collected": at}
                     total += int(cnt or 0)
                     oldest = at if (oldest is None or (at and at < oldest)) else oldest
                     break
@@ -214,9 +227,9 @@ def collect(do_github=True):
     data = {
         "generated_on": today(),
         "generated_by": "stats/fleet_stats.py",
-        "machine": os.environ.get("FLEET_NODE")
-        or os.environ.get("COMPUTERNAME")
-        or (os.uname().nodename if hasattr(os, "uname") else "unknown"),
+        "machine": anon(os.environ.get("FLEET_NODE")
+                        or os.environ.get("COMPUTERNAME")
+                        or (os.uname().nodename if hasattr(os, "uname") else "unknown")),
         "github": source_github() if do_github
         else {"verdict": "not available", "why": "--no-github"},
         "evals": source_evals(),
