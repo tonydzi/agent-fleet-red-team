@@ -1,10 +1,10 @@
 {
-  "_what": "Production authorization-gate firings from the fleet's own journal. Measured on the node that holds the journal; every other node reads this file rather than guessing. The weekly stats routine does not regenerate this file: it reports the figure and its age, and flags it stale past 45 days.",
-  "_how": "python3 approval.py stats 90  (the gate's own counter, reading its sqlite journal)",
+  "_what": "Production authorization-gate firings from the fleet's own journal. Measured on the node that holds the journal; every other node reads this file rather than guessing. Regenerate with stats/refresh_real_traffic.py.",
+  "_how": "the gate's own counter (metrics/stats subcommand) over the stated window",
   "measured_on": "2026-10-08",
   "measured_by_node": "hub",
-  "window_days": 90,
   "tier2_firings": 2879,
+  "window_days": 90,
   "per_day_avg": 32.0,
   "per_active_day_avg": 34.3,
   "by_category": {
@@ -18,8 +18,9 @@
   "cut_by_open_cap": 146,
   "expired_unanswered": 0,
   "_reading_it_honestly": [
-    "2166 of 2879 firings landed in the catch-all category 'other'. That is not a safety result, it is a taxonomy defect: the category field is optional at the call site, so most callers leave it unset. The money/secret/delete counts are therefore FLOORS, not totals.",
-    "146 asks were cut by the open-request cap rather than answered. The cap is deliberate backpressure, but a cut ask is work the agent did not do, not work it did safely.",
-    "0 asks expired unanswered in the window, which is the one number here that reads cleanly: everything that reached the queue got a decision."
+    "2166 of 2879 firings (75%) landed in the 'other' bucket, so the per-category counts below are floors, not totals.",
+    "Counts in by_category are FLOORS, not totals: the category field is optional at the call site, so whatever sits in the catch-all bucket is uncategorised traffic rather than a safety result.",
+    "Asks cut by the open-request cap are deliberate backpressure, but a cut ask is work the agent did not do, not work it did safely.",
+    "Asks that expired unanswered are the sharpest number here: they are questions that reached a human and never got a decision."
   ]
 }

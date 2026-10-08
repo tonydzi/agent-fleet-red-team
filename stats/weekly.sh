@@ -39,6 +39,15 @@ STAMP="$REPO_DIR/stats/.last-run"
 say() { printf '[redteam-stats %s] %s\n' "$(date '+%Y-%m-%d %H:%M')" "$*"; }
 die() { say "STOP: $*"; exit 1; }
 
+# FLEET_BUS populates the routine-count rows. Unset but a vault is configured -> try the
+# conventional location, so the unit file does not need a per-machine path edit. Still
+# unset after that -> the table honestly says "not available on this machine".
+if [ -z "${FLEET_BUS:-}" ] && [ -n "${OBSIDIAN_VAULT:-}" ] \
+   && [ -d "$OBSIDIAN_VAULT/_machine-bus/routine-registry" ]; then
+  export FLEET_BUS="$OBSIDIAN_VAULT/_machine-bus/routine-registry"
+  say "FLEET_BUS derived from OBSIDIAN_VAULT"
+fi
+
 [ -n "$PY" ] || die "no python3 on PATH"
 command -v git >/dev/null || die "no git on PATH"
 [ -d "$REPO_DIR/.git" ] || die "no clone at $REPO_DIR (git clone https://github.com/tonydzi/agent-fleet-red-team \"$REPO_DIR\")"
