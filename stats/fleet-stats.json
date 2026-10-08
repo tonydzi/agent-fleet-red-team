@@ -1,0 +1,141 @@
+{
+  "generated_on": "2026-10-08",
+  "generated_by": "stats/fleet_stats.py",
+  "machine": "A-2022BAYAREA",
+  "github": {
+    "verdict": "measured",
+    "asof": "2026-10-08",
+    "notes": [],
+    "public_repos": 147,
+    "followers": 53,
+    "upstream_prs_merged": 52,
+    "upstream_issues": 65,
+    "upstream_repos": 36,
+    "upstream_repos_engineering": 25,
+    "upstream_repos_curated_lists": 11,
+    "upstream_repo_names": [
+      "AlexMili/Awesome-MCP",
+      "DeusData/codebase-memory-mcp",
+      "IAAR-Shanghai/Awesome-AI-Memory",
+      "InftyAI/Awesome-LLMOps",
+      "Jenqyang/Awesome-AI-Agents",
+      "Lyellr88/marm-memory",
+      "QwenLM/qwen-code",
+      "TeleAI-UAGI/Awesome-Agent-Memory",
+      "TsinghuaC3I/Awesome-Memory-for-Agents",
+      "UKGovernmentBEIS/inspect_ai",
+      "Yigtwxx/awesome-rag-production",
+      "agno-agi/agno",
+      "ant-research/awesome-mllm-guardrails",
+      "areal-project/AReaL",
+      "basicmachines-co/basic-memory",
+      "bytedance/deer-flow",
+      "chigwell/telegram-mcp",
+      "cristicretu/diri",
+      "deepset-ai/haystack-integrations",
+      "elgorro/aiquila",
+      "google-gemini/cookbook",
+      "headroomlabs-ai/headroom",
+      "jxzhangjhu/Awesome-LLM-RAG",
+      "langroid/langroid",
+      "mariagorskikh/open-instinct",
+      "microsoft/semantic-kernel",
+      "mixelpixx/Konnect",
+      "modelcontextprotocol/go-sdk",
+      "nibzard/awesome-agentic-patterns",
+      "punkpeye/fastmcp",
+      "pydantic/logfire",
+      "tenequm/pond",
+      "vansh7nvc/Abstractify",
+      "virgiliojr94/book-to-skill",
+      "wearetyomsmnv/Awesome-LLMSecOps",
+      "zilliztech/memsearch"
+    ],
+    "flagship_stars": {
+      "leash-poc": 0,
+      "agent-approval-gate": 0,
+      "agent-fleet-red-team": null,
+      "verbatim-citation-gate": 4,
+      "agent-control-plane-casebook": 0,
+      "claw-consensus": 4
+    }
+  },
+  "evals": {
+    "verdict": "measured",
+    "asof": "2026-10-08",
+    "corpus_actions": 91,
+    "must_ask": 49,
+    "benign": 42,
+    "refusal_rate_pct": 100.0,
+    "over_refusal_rate_pct": 50.0,
+    "rule_coverage_pct": 71.4,
+    "must_ask_caught_only_by_default": 14,
+    "missed_must_ask": 0
+  },
+  "fleet": {
+    "verdict": "measured",
+    "asof": "2026-10-08",
+    "nodes_reporting": 5,
+    "routines_total": 1275,
+    "oldest_snapshot": "2026-09-30",
+    "per_node": {
+      "A-2022BAYAREA": {
+        "routines": 684,
+        "collected": "2026-10-06"
+      },
+      "FLEET-ANCHOR": {
+        "routines": 78,
+        "collected": "2026-10-08"
+      },
+      "MacBook-Anton": {
+        "routines": 209,
+        "collected": "2026-10-07"
+      },
+      "MacPro192": {
+        "routines": 5,
+        "collected": "2026-09-30"
+      },
+      "ZBOOKG8-2023PAL": {
+        "routines": 299,
+        "collected": "2026-10-07"
+      }
+    }
+  },
+  "real_traffic": {
+    "_what": "Production authorization-gate firings from the fleet's own journal. Measured on the node that holds the journal; every other node reads this file rather than guessing. The weekly stats routine does not regenerate this file: it reports the figure and its age, and flags it stale past 45 days.",
+    "_how": "python3 approval.py stats 90  (the gate's own counter, reading its sqlite journal)",
+    "measured_on": "2026-10-08",
+    "measured_by_node": "hub",
+    "window_days": 90,
+    "tier2_firings": 2879,
+    "per_day_avg": 32.0,
+    "per_active_day_avg": 34.3,
+    "by_category": {
+      "other": 2166,
+      "outbound": 390,
+      "config": 215,
+      "money": 58,
+      "secret": 41,
+      "delete": 9
+    },
+    "cut_by_open_cap": 146,
+    "expired_unanswered": 0,
+    "_reading_it_honestly": [
+      "2166 of 2879 firings landed in the catch-all category 'other'. That is not a safety result, it is a taxonomy defect: the category field is optional at the call site, so most callers leave it unset. The money/secret/delete counts are therefore FLOORS, not totals.",
+      "146 asks were cut by the open-request cap rather than answered. The cap is deliberate backpressure, but a cut ask is work the agent did not do, not work it did safely.",
+      "0 asks expired unanswered in the window, which is the one number here that reads cleanly: everything that reached the queue got a decision."
+    ],
+    "verdict": "carried over from a dated snapshot",
+    "age_days": 0
+  },
+  "coverage": {
+    "sources_total": 4,
+    "sources_measured": 3,
+    "measured": [
+      "github",
+      "evals",
+      "fleet"
+    ],
+    "line": "measured 3 of 4 sources; real_traffic: carried over from a dated snapshot"
+  }
+}

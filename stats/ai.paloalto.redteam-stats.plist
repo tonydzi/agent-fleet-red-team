@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Weekly recompute of the numbers this repository publishes.
+
+  INSTALL (macOS, per-user LaunchAgent):
+    cp stats/ai.paloalto.redteam-stats.plist ~/Library/LaunchAgents/
+    # edit the two paths below if your clone is not in ~/GitHub
+    launchctl unload ~/Library/LaunchAgents/ai.paloalto.redteam-stats.plist 2>/dev/null
+    launchctl load  ~/Library/LaunchAgents/ai.paloalto.redteam-stats.plist
+    launchctl start ai.paloalto.redteam-stats          # prove it runs now, do not wait a week
+    tail -40 /tmp/ai.paloalto.redteam-stats.log        # log path is set below; /tmp is wiped
+                                                       # on reboot, so the durable freshness
+                                                       # signal is stats/.last-run, not this log
+
+  SCHEDULE: Sundays 04:20 local. Night window on purpose: the run touches the network and
+  commits, and nobody should be typing in the clone while it does.
+
+  Linux equivalent, if you would rather use cron:
+    20 4 * * 0  REPO_DIR=$HOME/GitHub/agent-fleet-red-team FLEET_BUS=... \
+                /bin/bash $HOME/GitHub/agent-fleet-red-team/stats/weekly.sh \
+                >> $HOME/.logs/redteam-stats.log 2>&1
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.paloalto.redteam-stats</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>exec "$HOME/GitHub/agent-fleet-red-team/stats/weekly.sh"</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <!-- Point this at the fleet's routine-registry directory to populate the fleet
+             rows. Leave it out and the table honestly reports "not available". -->
+        <key>FLEET_BUS</key>
+        <string></string>
+    </dict>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key><integer>0</integer>
+        <key>Hour</key><integer>4</integer>
+        <key>Minute</key><integer>20</integer>
+    </dict>
+
+    <!-- A laptop is usually asleep at 04:20. launchd runs a missed StartCalendarInterval
+         job once the machine wakes, so the schedule survives sleep; what it does NOT
+         survive is the agent never being loaded. The thing to watch is therefore the age
+         of stats/.last-run, not this plist. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/ai.paloalto.redteam-stats.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/ai.paloalto.redteam-stats.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+    <key>Nice</key>
+    <integer>5</integer>
+</dict>
+</plist>
