@@ -6,7 +6,7 @@
     "verdict": "measured",
     "asof": "2026-10-08",
     "notes": [],
-    "public_repos": 147,
+    "public_repos": 148,
     "followers": 53,
     "upstream_prs_merged": 52,
     "upstream_issues": 65,
@@ -54,7 +54,7 @@
     "flagship_stars": {
       "leash-poc": 0,
       "agent-approval-gate": 0,
-      "agent-fleet-red-team": null,
+      "agent-fleet-red-team": 0,
       "verbatim-citation-gate": 4,
       "agent-control-plane-casebook": 0,
       "claw-consensus": 4
