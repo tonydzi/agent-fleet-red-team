@@ -81,7 +81,7 @@ git add stats/fleet-stats.json stats/FLEET.md README.md
 git -c user.name="${GIT_AUTHOR_NAME:-Anton Dziatkovskii}" \
     -c user.email="${GIT_AUTHOR_EMAIL:-dzyatkovskiy.a@gmail.com}" \
     commit --quiet -m "stats: weekly recompute $(date '+%Y-%m-%d')" \
-    -m "Unattended run of stats/fleet_stats.py on $(hostname -s). Sources that could not be measured are reported as such in the table." \
+    -m "Unattended run of stats/fleet_stats.py. Sources that could not be measured are reported as such in the table." \
   || die "commit failed"
 
 if [ "${NO_PUSH:-0}" = "1" ]; then
