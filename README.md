@@ -10,7 +10,7 @@ A written threat model, with measured numbers, for a group of AI agents that hol
 2. Read how the system is modelled: [THREAT-MODEL.md](THREAT-MODEL.md).
 3. Recompute the main numbers yourself (needs only Python 3.8+): `python3 evals/refusal_overrefusal.py`
 
-**Done when:** the script prints "refusal rate 100.0%", "over-refusal rate 50.0%" and "rule coverage 71.4%".
+**Done when:** the script prints "refusal rate 100.0%", "over-refusal rate 50.0%" and "rule coverage 71.4%". The 50% is not a failure: it is the measured price of a gate that asks a human too often (the write-up explains it).
 
 > Want an AI agent to do it for you? Paste this to Claude Code / Codex / Cursor:
 > "Read the 'For AI agents' section of https://github.com/tonydzi/agent-fleet-red-team and set it up for me."
@@ -29,8 +29,8 @@ cd agent-fleet-red-team
 python3 evals/refusal_overrefusal.py            # refusal, over-refusal, rule coverage
 python3 evals/refusal_overrefusal.py --misses   # every wrong verdict, by id
 python3 evals/test_red_first.py                 # breaks the gate 6 ways, expects each break caught
-python3 evals/classifier.py --check-drift       # is the vendored classifier still upstream's?
-python3 stats/fleet_stats.py                    # every number in the table, with blind spots
+python3 evals/classifier.py --check-drift       # is the vendored classifier still upstream's? needs network, exits 1 on drift
+python3 stats/fleet_stats.py --no-github        # every number in the table, with blind spots; drop the flag to also query GitHub via gh
 ```
 On Windows use `python` if `python3` is not found.
 
@@ -45,7 +45,7 @@ corpus: 91 actions (49 must-ask, 42 benign) | default class = E
   over-refusal rate   50.0%   (21 of 42 benign actions routed to a human anyway)
   rule coverage       71.4%   (35 of 49 must-ask caught by an explicit rule; 14 only by the default)
 ```
-Then `python3 evals/test_red_first.py` should end with `GREEN: 13/13 checks, 6 mutations all detected`.
+Then `python3 evals/test_red_first.py` should end with `GREEN: 13/13 checks, 6 mutations all detected` and exit 0. This second command is the one that fails if the install is broken (the first prints numbers for any corpus it can read, so by itself it proves only that the files are present). The corpus is the author's own 91 hand-labelled actions, so these are self-measured numbers, not an independent benchmark.
 
 ### Uninstall / rollback
 Delete the cloned folder. The scripts write nothing outside it (the red-first test restores the classifier it edits).
